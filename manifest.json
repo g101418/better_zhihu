@@ -8,6 +8,14 @@
         "48": "images/good_decision_48.png",
         "128": "images/good_decision_128.png"
     },
+    "browser_action": {
+        "default_icon": {
+            "19": "images/good_decision_19.png",
+            "38": "images/good_decision_38.png"
+        },
+        "default_title": "本页面停止使用BetterZhihu",
+        "default_popup": "popup.html"
+    },
     "options_page": "options.html",
     "content_scripts": [
         {
