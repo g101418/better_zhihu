@@ -10,6 +10,7 @@ var observer = new MutationObserver(function (mutationRecords) {
 });
 var shouldDelete = true;
 
+
 //单个问题全部回答的页面
 $(document).ready(function () {
     $("div.QuestionAnswers-answers div.List-item").each(function () {
@@ -29,12 +30,15 @@ $(document).ready(function () {
 
 // 添加动态加载div的监视
 $(document).ready(function () {
-    if ($('div.QuestionAnswers-answers div.List>div:eq(1)>div')[0]) {
-        console.log('开始监控是否产生新回答')
-        observer.observe($('div.QuestionAnswers-answers div.List>div:eq(1)>div')[0], {
-            'childList': true
-        })
-    }
+    t = setInterval(function () {
+        if ($('div.QuestionAnswers-answers div.List>div:eq(1)>div')[0]) {
+            console.log('开始监控新回答')
+            observer.observe($('div.QuestionAnswers-answers div.List>div:eq(1)>div')[0], {
+                'childList': true
+            })
+            clearInterval(t)
+        }
+    },1500)
 });
 
 //处理单div
@@ -49,19 +53,19 @@ function processItem(item) {
     if (length <= 100 || p_length <= 30 || (p_num <= 1 && length >= 100) ||
         (p_num == 2 && length >= 350)) {
         isDelete = true
-        if(shouldDelete){
+        if (shouldDelete) {
             item.hide();
             hiddenItems.push(item);
         }
     }
-    console.log(text); 
+    console.log(text);
     console.log("长度length: " + length + "   段落数p_num: " + p_num +
-        "   平均段长p_length: " + p_length.toFixed(2) + 
-        (shouldDelete?(isDelete ? '  删' : '  未删'):(isDelete ? '  应删' : '  不应删')));
+        "   平均段长p_length: " + p_length.toFixed(2) +
+        (shouldDelete ? (isDelete ? '  删' : '  未删') : (isDelete ? '  应删' : '  不应删')));
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.greeting == "stop"){
+    if (request.greeting == "stop") {
         console.log("收到停止删除请求")
         hiddenItems.forEach(function (item, index) {
             item.show()
