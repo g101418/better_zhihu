@@ -12,20 +12,12 @@
     "content_scripts": [
         {
             "matches": [
-                "*://www.zhihu.com/question/*"
-            ],
-            "js": [
-                "js/jquery-3.3.1.min.js",
-                "js/eliminate1.js"
-            ]
-        },
-        {
-            "matches": [
+                "*://www.zhihu.com/question/*",
                 "*://www.zhihu.com/question/*/answer/*"
             ],
             "js": [
                 "js/jquery-3.3.1.min.js",
-                "js/eliminate2.js"
+                "js/eliminate.js"
             ]
         }
     ]
