@@ -10,6 +10,10 @@ var observer = new MutationObserver(function (mutationRecords) {
 });
 var shouldDelete = true;
 
+chrome.runtime.sendMessage({greeting: "e"},function (response) {
+    console.log(response.farewell);
+    check(response.farewell)
+});
 
 //单个问题全部回答的页面
 $(document).ready(function () {
@@ -50,8 +54,7 @@ function processItem(item) {
     var p_length = length / p_num;
 
     var isDelete = false
-    if (length <= 100 || p_length <= 30 || (p_num <= 1 && length >= 100) ||
-        (p_num == 2 && length >= 350)) {
+    if (judge(text, length, p_length, p_num, judgeCondition, keywordCondition)==true) {
         isDelete = true
         if (shouldDelete) {
             item.hide();
@@ -62,6 +65,71 @@ function processItem(item) {
     console.log("长度length: " + length + "   段落数p_num: " + p_num +
         "   平均段长p_length: " + p_length.toFixed(2) +
         (shouldDelete ? (isDelete ? '  删' : '  未删') : (isDelete ? '  应删' : '  不应删')));
+}
+
+//返回true时删除
+function judge(text, length, p_length, p_num, judgeCondition, keywordCondition) {
+    //关键字删除
+    for(var i=0;i<keywordCondition.length;i++){
+        for(var j=0;j<keywordCondition[i].items.length;j++){
+            if(text.indexOf(keywordCondition[i].items[j]) >= 0){
+                return true;
+            }
+        }
+    }
+    //条件判断删除
+    for(var i=0;i<judgeCondition.length;i++){
+        var jud = true
+        for(var j=0;j<judgeCondition[i].length;j++){
+            var firstNum=judgeCondition[i][j].firstNum;
+            var secondNum=judgeCondition[i][j].secondNum;
+            var num = judgeCondition[i][j].num;
+            // console.log("first:"+firstNum+" second:"+secondNum+" num:"+num)
+            if(secondNum==1){
+                if(firstNum==2){
+                    if(length>num){}else{jud=jud&false};
+                }else if (firstNum==3) {
+                    if(p_length>num){}else{jud=jud&false};
+                }else if (firstNum==4) {
+                    if(p_num>num){}else{jud=jud&false};
+                }
+            }else if (secondNum==2) {
+                if(firstNum==2){
+                    if(length<num){}else{jud=jud&false};
+                }else if (firstNum==3) {
+                    if(p_length<num){}else{jud=jud&false};
+                }else if (firstNum==4) {
+                    if(p_num<num){}else{jud=jud&false};
+                }
+            }else if (secondNum==3) {
+                if(firstNum==2){
+                    if(length>=num){}else{jud=jud&false};
+                }else if (firstNum==3) {
+                    if(p_length>=num){}else{jud=jud&false};
+                }else if (firstNum==4) {
+                    if(p_num>=num){}else{jud=jud&false};
+                }
+            }else if (secondNum==4) {
+                if(firstNum==2){
+                    if(length<=num){}else{jud=jud&false};
+                }else if (firstNum==3) {
+                    if(p_length<=num){}else{jud=jud&false};
+                }else if (firstNum==4) {
+                    if(p_num<=num){}else{jud=jud&false};
+                }
+            }else if (secondNum==5) {
+                if(firstNum==2){
+                    if(length==num){}else{jud=jud&false};
+                }else if (firstNum==3) {
+                    if(p_length==num){}else{jud=jud&false};
+                }else if (firstNum==4) {
+                    if(p_num==num){}else{jud=jud&false};
+                }
+            }
+        }
+        if(jud==true) return true;
+    }
+    return false;
 }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
