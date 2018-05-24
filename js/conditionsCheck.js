@@ -62,6 +62,9 @@
                     // console.log("item:" + item)
                     if (item.indexOf('==') >= 0) {
                         var ss = item.split('==')
+                        if(ss.length>2){
+                            return false;
+                        }
                         // console.log(ss)
                         if (isNumber(ss[1])) {
                             if (ss[0] == "length") {
@@ -79,6 +82,9 @@
                         }
                     } else if (item.indexOf('>=') >= 0) {
                         var ss = item.split('>=')
+                        if(ss.length>2){
+                            return false;
+                        }
                         // console.log(ss)
                         if (isNumber(ss[1])) {
                             if (ss[0] == "length") {
@@ -96,6 +102,9 @@
                         }
                     } else if (item.indexOf('<=') >= 0) {
                         var ss = item.split('<=')
+                        if(ss.length>2){
+                            return false;
+                        }
                         // console.log(ss)
                         if (isNumber(ss[1])) {
                             if (ss[0] == "length") {
@@ -113,6 +122,9 @@
                         }
                     } else if (item.indexOf('>') >= 0) {
                         var ss = item.split('>')
+                        if(ss.length>2){
+                            return false;
+                        }
                         // console.log(ss)
                         if (isNumber(ss[1])) {
                             if (ss[0] == "length") {
@@ -130,6 +142,9 @@
                         }
                     } else if (item.indexOf('<') >= 0) {
                         var ss = item.split('<')
+                        if(ss.length>2){
+                            return false;
+                        }
                         // console.log(ss)
                         if (isNumber(ss[1])) {
                             if (ss[0] == "length") {

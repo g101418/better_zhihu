@@ -63,8 +63,9 @@
     <h1>Better Zhihu 筛选条件</h1>
     <div>
         <div>
+            <h6>例：text=aa,vv,啊的;length>12,length>=23,p_length>2;p_num<1;p_length==1;text=aa.a</h6>
             <h6>例：length<=100;p_length<=30;p_num==1,length>=100;p_num==2,length>=350</h6>
-            <h6>判断为true则删除答案，每个分号之间的所有判断语句都是“与”，分号与分号间都是“或”</h6>
+            <h6>判断为true则删除答案，每个分号之间的所有判断语句都是“与”，分号与分号间都是“或”，text除外，text全为“或”</h6>
             <h6>length为回答总长度，p_length为平均段落长度，p_num为段落数</h6>
             <h6>不填写则启用默认屏蔽规则</h6>
             <textarea name="conditions" id="conditionsCheck"></textarea>
