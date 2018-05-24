@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Better Zhihu",
-    "version": "0.1",
+    "version": "0.2.1",
     "description": "消除某些回答让知乎更清新更美好",
     "icons": {
         "16": "images/good_decision_16.png",
