@@ -40,7 +40,7 @@ $(document).ready(function () {
 })
 
 // 添加动态加载div的监视
-$(document).ready(function () {
+// $(document).ready(function () {
     t = setInterval(function () {
         if ($('div.QuestionAnswers-answers div.List>div:eq(1)>div')[0]) {
             if (shouldDelete == true) {
@@ -51,8 +51,8 @@ $(document).ready(function () {
             }
             clearInterval(t)
         }
-    }, 1500)
-});
+    }, 1000)
+// });
 
 //处理单div
 function processItem(item) {
