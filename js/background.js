@@ -1,7 +1,3 @@
-if(localStorage.condition.length==0){
-    localStorage.condition = "length<=100;p_length<=30;p_num==1,length>=100;p_num==2,length>=350"
-}
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log(request.greeting);
 
@@ -10,7 +6,12 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if(sender=="o"){
         localStorage.condition = greeting;
     }else{
-        sendResponse({farewell: localStorage.condition});
+        if(localStorage.condition){
+            console.log("send:"+localStorage.condition)
+            sendResponse({farewell: localStorage.condition});
+        }else{
+            sendResponse({farewell: ""});
+        }
     }
     
 });

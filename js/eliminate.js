@@ -11,8 +11,15 @@ var observer = new MutationObserver(function (mutationRecords) {
 var shouldDelete = true;
 
 chrome.runtime.sendMessage({greeting: "e"}, function (response) {
-    console.log(response.farewell);
-    check(response.farewell)
+    var cond = response.farewell;
+    if(cond.length==0){
+        cond = "length<=100;p_length<=30;p_num==1,length>=100;p_num==2,length>=350";
+        chrome.runtime.sendMessage({
+            greeting: "o" + "length<=100;p_length<=30;p_num==1,length>=100;p_num==2,length>=350"
+        });
+    }
+    console.log("屏蔽规则："+cond);
+    check(cond)
 });
 
 //单个问题全部回答的页面
