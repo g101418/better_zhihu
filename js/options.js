@@ -11,6 +11,8 @@ document.getElementById("confirm").onclick = function () {
 
     console.log(judgeCondition)
     console.log(keywordCondition)
-
-
 }
+
+chrome.runtime.sendMessage({greeting: "e"}, function (response) {
+    document.getElementById("conditionText").innerHTML="当前规则： "+response.farewell;
+});

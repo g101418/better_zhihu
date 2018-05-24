@@ -10,9 +10,7 @@ var observer = new MutationObserver(function (mutationRecords) {
 });
 var shouldDelete = true;
 
-chrome.runtime.sendMessage({
-    greeting: "e"
-}, function (response) {
+chrome.runtime.sendMessage({greeting: "e"}, function (response) {
     console.log(response.farewell);
     check(response.farewell)
 });
