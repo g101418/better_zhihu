@@ -59,6 +59,7 @@ function processItem(item) {
     var p_num = item.find("span.RichText.ztext.CopyrightRichText-richText p,br,blockquote,code").length;
     var text = item.find("span.RichText.ztext.CopyrightRichText-richText").text();
     text = text.replace(/<img[^>]*>/g, "");
+    p_num = p_num>0?p_num:1;
     var length = text.length;
     var p_length = length / p_num;
 
